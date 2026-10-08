@@ -1,0 +1,414 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Brute Force</title>
+<meta name="description" content="Human-made talking heads at the volume only AI slop used to reach.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+@font-face {
+  font-family: 'PODIUM Sharp';
+  src: url('fonts/podium-sharp.otf') format('opentype');
+  font-weight: 1000;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  --bg: #161215;
+  --surface1: #1e1a1d;
+  --surface2: #2A2427;
+  --surface3: #3D3538;
+  --border-visible: #2A2427;
+  --text1: #FFFFFF;
+  --text2: #D0C1B7;
+  --text3: #A89888;
+  --text4: #7A6E64;
+  --accent: #EAABFE;
+
+  --font-display: 'PODIUM Sharp', 'Arial Black', 'Impact', sans-serif;
+  --font-body: 'Inter', -apple-system, sans-serif;
+
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 32px;
+  --space-2xl: 48px;
+  --space-3xl: 64px;
+  --space-4xl: 96px;
+  --space-5xl: 128px;
+  --space-6xl: 192px;
+
+  --gutter: 48px;
+  --ease: cubic-bezier(0.25, 0, 0, 1);
+  --duration-fast: 150ms;
+  --duration-normal: 300ms;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; border-radius: 0; }
+
+html { background: var(--bg); }
+
+body {
+  background: var(--bg);
+  color: var(--text2);
+  font-family: var(--font-body);
+  font-weight: 300;
+  font-size: 16px;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+a { color: inherit; text-decoration: none; }
+
+:focus-visible { outline: 1px solid var(--accent); outline-offset: 2px; }
+
+/* Type */
+.display {
+  font-family: var(--font-display);
+  font-weight: 1000;
+  font-stretch: 200%;
+  line-height: 0.9;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  color: var(--text1);
+  overflow-wrap: break-word;
+}
+.display-xl { font-size: clamp(64px, 10vw, 150px); }
+.display-lg { font-size: clamp(44px, 7.5vw, 100px); }
+.display-md { font-size: clamp(32px, 5vw, 64px); }
+.display-sm { font-size: clamp(24px, 3.5vw, 48px); }
+.accent { color: var(--accent); }
+
+.label {
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text4);
+}
+
+/* Buttons */
+.btn-bordered {
+  display: inline-block;
+  min-height: 44px;
+  padding: 16px 40px;
+  border: 1px solid var(--accent);
+  background: transparent;
+  color: var(--accent);
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background var(--duration-normal) var(--ease), color var(--duration-normal) var(--ease);
+}
+.btn-bordered:hover { background: var(--accent); color: var(--bg); }
+
+.btn-text {
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--accent);
+  transition: color var(--duration-fast) var(--ease);
+}
+.btn-text:hover { color: var(--text1); }
+
+/* Nav */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 10;
+  mix-blend-mode: difference;
+}
+.nav-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--space-xl) var(--gutter);
+}
+.logo {
+  font-size: 16px;
+  font-weight: 400;
+  color: var(--text1);
+  letter-spacing: 0.02em;
+}
+
+/* Layout */
+.wrap { padding: 0 var(--gutter); }
+
+.section { padding-top: var(--space-4xl); padding-bottom: var(--space-4xl); }
+.section-border {
+  border-top: 1px solid var(--border-visible);
+  padding-top: var(--space-3xl);
+}
+.section-label {
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--text4);
+  margin-bottom: var(--space-2xl);
+}
+
+/* Hero */
+.hero {
+  min-height: 100vh;
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding-top: 120px;
+  padding-bottom: var(--space-3xl);
+}
+.hero .label { margin-bottom: var(--space-xl); }
+.hero h1 { margin-bottom: var(--space-2xl); }
+.hero-title { font-size: min(13vh, calc((100vw - 2 * var(--gutter)) / 13.8)); }
+.hero-title > span { display: block; white-space: nowrap; }
+.hero-foot {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: var(--space-2xl);
+  align-items: end;
+  border-top: 1px solid var(--border-visible);
+  padding-top: var(--space-xl);
+}
+.hero-sub {
+  max-width: 560px;
+  font-size: 18px;
+  line-height: 1.6;
+  color: var(--text2);
+}
+.hero-proof {
+  margin-top: var(--space-lg);
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text1);
+}
+
+/* Steps */
+.steps {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-2xl);
+}
+.step-num {
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--text4);
+  margin-bottom: var(--space-md);
+}
+.step h3 { margin-bottom: var(--space-md); font-size: clamp(22px, 2.2vw, 40px); }
+.step p { font-size: 15px; color: var(--text3); max-width: 360px; }
+
+/* Contrast strip */
+.contrast {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border-top: 1px solid var(--border-visible);
+  border-bottom: 1px solid var(--border-visible);
+}
+.contrast > div { padding: var(--space-4xl) 0; }
+.contrast > div + div {
+  border-left: 1px solid var(--border-visible);
+  padding-left: var(--space-2xl);
+}
+.contrast .label { margin-bottom: var(--space-lg); }
+.contrast .them .display { color: var(--text4); }
+.contrast .them { padding-right: var(--space-2xl); }
+
+/* Pricing */
+.tiers {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-xl);
+}
+.tier {
+  background: var(--surface1);
+  border: 1px solid var(--border-visible);
+  padding: var(--space-2xl);
+  display: flex;
+  flex-direction: column;
+  transition: border-color var(--duration-normal) var(--ease);
+}
+.tier:hover { border-color: var(--accent); }
+.tier .step-num { margin-bottom: var(--space-lg); }
+.tier h3 { margin-bottom: var(--space-lg); }
+.tier-desc { font-size: 15px; color: var(--text3); margin-bottom: var(--space-xl); max-width: 440px; }
+.tier ul {
+  list-style: none;
+  border-top: 1px solid var(--border-visible);
+  margin-bottom: var(--space-2xl);
+}
+.tier li {
+  font-size: 15px;
+  color: var(--text2);
+  padding: var(--space-md) 0;
+  border-bottom: 1px solid var(--border-visible);
+}
+.tier .btn-text { margin-top: auto; }
+
+/* Final CTA */
+.cta {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-3xl);
+  align-items: end;
+  padding: var(--space-6xl) 0;
+  border-top: 1px solid var(--border-visible);
+}
+.cta p { font-size: 15px; color: var(--text3); max-width: 400px; margin-bottom: var(--space-xl); }
+
+/* Footer */
+footer {
+  border-top: 1px solid var(--border-visible);
+  padding: var(--space-2xl) var(--gutter);
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-md);
+}
+footer .brand { font-size: 14px; color: var(--text4); }
+
+@media (max-width: 900px) {
+  :root { --gutter: 16px; }
+  .nav-inner { padding: var(--space-lg) var(--gutter); }
+  .hero-foot { grid-template-columns: 1fr; }
+  .hero-foot .btn-bordered { justify-self: start; }
+  .hero-title { font-size: min(11vh, calc((100vw - 2 * var(--gutter)) / 7.8)); }
+  .hero-title .l1 { display: block; }
+  .steps { grid-template-columns: 1fr; gap: var(--space-3xl); }
+  .contrast { grid-template-columns: 1fr; }
+  .contrast > div { padding: var(--space-3xl) 0; }
+  .contrast > div + div {
+    border-left: 0;
+    border-top: 1px solid var(--border-visible);
+    padding-left: 0;
+  }
+  .contrast .them { padding-right: 0; }
+  .tiers { grid-template-columns: 1fr; }
+  .tier { padding: var(--space-xl) var(--space-lg); }
+  .cta { grid-template-columns: 1fr; padding: var(--space-5xl) 0; }
+  footer { flex-direction: column; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="#" class="logo">BRUTEFORCE</a>
+    <a href="#book" class="btn-text">[Book a Call]</a>
+  </div>
+</nav>
+
+<main>
+
+  <header class="hero wrap">
+    <p class="label">Human-made content at machine volume</p>
+    <h1 class="display hero-title"><span><span class="l1">Slop</span> <span class="l1">scales.</span></span><span><span class="l1">Now</span> <span class="l1 accent">real</span></span><span class="accent">people</span><span>do too.</span></h1>
+    <div class="hero-foot">
+      <div>
+        <p class="hero-sub">AI slop wins on volume alone. Brute Force gives that volume to real people. Ten clips of a human on camera become endless unique edits, so you can answer every stream of slop with a real face.</p>
+        <p class="hero-proof">10 clips in. Infinite unique videos out.</p>
+      </div>
+      <a href="#book" class="btn-bordered">[Book a Call]</a>
+    </div>
+  </header>
+
+  <section class="section wrap" id="how">
+    <div class="section-border">
+      <p class="section-label">How it works</p>
+      <div class="steps">
+        <div class="step">
+          <p class="step-num">01</p>
+          <h3 class="display display-sm">You shoot.</h3>
+          <p>Real people, real footage, your taste.</p>
+        </div>
+        <div class="step">
+          <p class="step-num">02</p>
+          <h3 class="display display-sm">We cut it into blocks.</h3>
+          <p>Hooks, intros, bodies, outros, music.</p>
+        </div>
+        <div class="step">
+          <p class="step-num">03</p>
+          <h3 class="display display-sm">The engine builds every combination.</h3>
+          <p>Hundreds of edits per run, ready to post or run as ads.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrap">
+    <div class="contrast">
+      <div class="them">
+        <p class="label">Them</p>
+        <p class="display display-md">One prompt, a thousand fakes.</p>
+      </div>
+      <div class="you">
+        <p class="label">You</p>
+        <p class="display display-md">One shoot, a thousand real ones.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section wrap" id="pricing">
+    <div class="section-border">
+      <p class="section-label">Two ways in</p>
+      <div class="tiers">
+        <div class="tier">
+          <p class="step-num">01</p>
+          <h3 class="display display-sm">You shoot. We multiply.</h3>
+          <p class="tier-desc">You record the talking heads and send us the videos. We create the infinite variations.</p>
+          <ul>
+            <li>You record and deliver the videos</li>
+            <li>We cut your footage into blocks</li>
+            <li>We create the infinite variations</li>
+          </ul>
+          <a href="#book" class="btn-text">[Book a Call]</a>
+        </div>
+        <div class="tier">
+          <p class="step-num">02</p>
+          <h3 class="display display-sm">We do all of it.</h3>
+          <p class="tier-desc">We hold your hand from the first script to the last variation.</p>
+          <ul>
+            <li>Script</li>
+            <li>Pre-production</li>
+            <li>Shoot and direction</li>
+            <li>The infinite variations, in bulk</li>
+          </ul>
+          <a href="#book" class="btn-text">[Book a Call]</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrap" id="book">
+    <div class="cta">
+      <h2 class="display display-lg">Answer the slop with a <span class="accent">real</span> face.</h2>
+      <div>
+        <p>For brands running paid social and creators sitting on real footage.</p>
+        <a href="#book" class="btn-bordered">[Book a Call]</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <span class="brand">Brute Force</span>
+  <span class="label">Human-made at machine volume</span>
+</footer>
+
+</body>
+</html>
