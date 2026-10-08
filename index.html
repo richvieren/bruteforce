@@ -213,133 +213,9 @@ nav {
 .step h3 { margin-bottom: var(--space-md); }
 .step p { font-size: 15px; color: var(--text3); max-width: 360px; }
 
-/* Combination diagram */
-.matrix {
-  background: var(--surface1);
-  border: 1px solid var(--border-visible);
-}
-.m-top {
-  display: grid;
-  grid-template-columns: 1fr auto 1fr auto 1fr;
-  gap: var(--space-lg);
-  align-items: center;
-  padding: var(--space-2xl);
-}
-.m-head {
-  font-size: 13px;
-  font-weight: 500;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  color: var(--text1);
-  margin-bottom: var(--space-lg);
-}
-.m-n { color: var(--accent); }
-.tiles {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: var(--space-sm);
-}
-.tile { display: flex; flex-direction: column; align-items: center; gap: 6px; }
-.tile-frame {
-  width: 100%;
-  aspect-ratio: 1 / 1.15;
-  border: 1px solid var(--surface3);
-  background: var(--bg);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: border-color var(--duration-normal) var(--ease);
-}
-.tile:hover .tile-frame { border-color: var(--accent); }
-.tri {
-  width: 0; height: 0;
-  border-top: 7px solid transparent;
-  border-bottom: 7px solid transparent;
-  border-left: 11px solid var(--text3);
-  margin-left: 3px;
-}
-.tile-num { font-size: 11px; font-weight: 400; color: var(--text4); letter-spacing: 0.05em; }
-.m-op {
-  font-size: 28px;
-  font-weight: 300;
-  color: var(--text3);
-  line-height: 1;
-}
-.m-eq {
-  border-top: 1px solid var(--border-visible);
-  padding: var(--space-xl) var(--space-2xl);
-  font-size: 13px;
-  font-weight: 500;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  color: var(--text2);
-}
-.m-eq .accent { font-size: clamp(20px, 2.2vw, 30px); letter-spacing: -0.01em; margin-right: 12px; font-weight: 400; }
-.m-bottom {
-  border-top: 1px solid var(--border-visible);
-  display: grid;
-  grid-template-columns: minmax(0, 260px) auto minmax(0, 300px) auto 1fr;
-  gap: var(--space-xl);
-  align-items: center;
-  padding: var(--space-2xl);
-}
-.m-box {
-  border: 1px solid var(--surface3);
-  background: var(--bg);
-  padding: var(--space-lg);
-}
-.m-box .m-head { margin-bottom: var(--space-md); }
-.hook {
-  border: 1px solid var(--border-visible);
-  padding: 10px 14px;
-  font-size: 12px;
-  font-weight: 400;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--text3);
-  margin-bottom: var(--space-sm);
-}
-.hook.on { color: var(--accent); border-color: var(--accent); }
-.more { font-size: 16px; color: var(--text4); letter-spacing: 0.3em; text-align: center; line-height: 1; padding-top: 4px; }
-.track { display: grid; grid-template-columns: 32px 1fr; gap: var(--space-sm); margin-bottom: var(--space-sm); }
-.track-play {
-  border: 1px solid var(--border-visible);
-  display: flex; align-items: center; justify-content: center;
-  height: 36px;
-}
-.track-play .tri { border-top-width: 5px; border-bottom-width: 5px; border-left-width: 8px; margin-left: 2px; }
-.wave {
-  border: 1px solid var(--border-visible);
-  height: 36px;
-  display: flex; align-items: center; gap: 2px;
-  padding: 0 8px;
-}
-.wave i { flex: 1; background: var(--text4); display: block; }
-.track.on .wave { border-color: var(--accent); }
-.track.on .wave i { background: var(--accent); }
-.m-result {
-  font-size: clamp(36px, 4.4vw, 68px);
-  font-weight: 400;
-  letter-spacing: -0.04em;
-  line-height: 0.95;
-  color: var(--text1);
-}
-
-/* Contrast strip */
-.contrast {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  border-top: 1px solid var(--border-visible);
-  border-bottom: 1px solid var(--border-visible);
-}
-.contrast > div { padding: var(--space-4xl) 0; }
-.contrast .them { padding-right: var(--space-2xl); }
-.contrast > div + div {
-  border-left: 1px solid var(--border-visible);
-  padding-left: var(--space-2xl);
-}
-.contrast .label { margin-bottom: var(--space-lg); }
-.contrast .them .display { color: var(--text4); }
+/* How it works image */
+.how-img { border: 1px solid var(--border-visible); }
+.how-img img { display: block; width: 100%; height: auto; }
 
 /* Pricing */
 .tiers {
@@ -394,30 +270,12 @@ footer {
 }
 footer .logo-type { font-size: 14px; color: var(--text4); }
 
-@media (max-width: 1100px) {
-  .m-top { grid-template-columns: 1fr; gap: var(--space-xl); }
-  .m-op { text-align: center; }
-  .m-bottom { grid-template-columns: 1fr; gap: var(--space-lg); }
-  .m-bottom .m-op { text-align: center; }
-}
-
 @media (max-width: 900px) {
   :root { --gutter: 16px; }
   .nav-inner { padding: var(--space-md) var(--gutter); }
   .hero-foot { grid-template-columns: 1fr; }
   .hero-foot .btn-bordered { justify-self: start; }
   .steps { grid-template-columns: 1fr; gap: var(--space-3xl); margin-bottom: var(--space-3xl); }
-  .m-top, .m-bottom { padding: var(--space-lg); }
-  .m-eq { padding: var(--space-lg); }
-  .m-eq .accent { display: block; margin: 0 0 8px; }
-  .contrast { grid-template-columns: 1fr; }
-  .contrast > div { padding: var(--space-3xl) 0; }
-  .contrast .them { padding-right: 0; }
-  .contrast > div + div {
-    border-left: 0;
-    border-top: 1px solid var(--border-visible);
-    padding-left: 0;
-  }
   .tiers { grid-template-columns: 1fr; }
   .tier { padding: var(--space-xl) var(--space-lg); }
   .cta { grid-template-columns: 1fr; padding: var(--space-5xl) 0; }
@@ -438,7 +296,7 @@ footer .logo-type { font-size: 14px; color: var(--text4); }
 
   <header class="hero wrap">
     <p class="label">Human-made content at machine volume</p>
-    <h1 class="display display-xl">AI slop comes in infinite variations. Now <span class="accent">your talking heads</span> do too.</h1>
+    <h1 class="display display-xl">We're being buried in AI slop. We create <span class="accent">original content</span> at scale.</h1>
     <div class="hero-foot">
       <div>
         <p class="hero-sub">AI slop wins on volume alone. Brute Force gives that volume to real people. Ten clips of a human on camera become endless unique edits, so you can answer every stream of slop with a real face.</p>
@@ -469,90 +327,9 @@ footer .logo-type { font-size: 14px; color: var(--text4); }
         </div>
       </div>
 
-      <div class="matrix" role="img" aria-label="10 intros times 10 bodies times 10 CTAs or outros gives 1,000 structural combinations. Add 35 title hooks and 10 audio tracks for infinite variations.">
-        <div class="m-top">
-        <div class="m-group">
-          <p class="m-head"><span class="m-n">10</span> Intros</p>
-          <div class="tiles">
-<div class="tile"><span class="tile-frame"><span class="tri"></span></span><span class="tile-num">01</span></div>
-<div class="tile"><span class="tile-frame"><span class="tri"></span></span><span class="tile-num">02</span></div>
-<div class="tile"><span class="tile-frame"><span class="tri"></span></span><span class="tile-num">03</span></div>
-<div class="tile"><span class="tile-frame"><span class="tri"></span></span><span class="tile-num">04</span></div>
-<div class="tile"><span class="tile-frame"><span class="tri"></span></span><span class="tile-num">05</span></div>
-<div class="tile"><span class="tile-frame"><span class="tri"></span></span><span class="tile-num">06</span></div>
-<div class="tile"><span class="tile-frame"><span class="tri"></span></span><span class="tile-num">07</span></div>
-<div class="tile"><span class="tile-frame"><span class="tri"></span></span><span class="tile-num">08</span></div>
-<div class="tile"><span class="tile-frame"><span class="tri"></span></span><span class="tile-num">09</span></div>
-<div class="tile"><span class="tile-frame"><span class="tri"></span></span><span class="tile-num">10</span></div>
-          </div>
-        </div>
-          <span class="m-op">&times;</span>
-        <div class="m-group">
-          <p class="m-head"><span class="m-n">10</span> Bodies</p>
-          <div class="tiles">
-<div class="tile"><span class="tile-frame"><span class="tri"></span></span><span class="tile-num">01</span></div>
-<div class="tile"><span class="tile-frame"><span class="tri"></span></span><span class="tile-num">02</span></div>
-<div class="tile"><span class="tile-frame"><span class="tri"></span></span><span class="tile-num">03</span></div>
-<div class="tile"><span class="tile-frame"><span class="tri"></span></span><span class="tile-num">04</span></div>
-<div class="tile"><span class="tile-frame"><span class="tri"></span></span><span class="tile-num">05</span></div>
-<div class="tile"><span class="tile-frame"><span class="tri"></span></span><span class="tile-num">06</span></div>
-<div class="tile"><span class="tile-frame"><span class="tri"></span></span><span class="tile-num">07</span></div>
-<div class="tile"><span class="tile-frame"><span class="tri"></span></span><span class="tile-num">08</span></div>
-<div class="tile"><span class="tile-frame"><span class="tri"></span></span><span class="tile-num">09</span></div>
-<div class="tile"><span class="tile-frame"><span class="tri"></span></span><span class="tile-num">10</span></div>
-          </div>
-        </div>
-          <span class="m-op">&times;</span>
-        <div class="m-group">
-          <p class="m-head"><span class="m-n">10</span> CTAs / Outros</p>
-          <div class="tiles">
-<div class="tile"><span class="tile-frame"><span class="tri"></span></span><span class="tile-num">01</span></div>
-<div class="tile"><span class="tile-frame"><span class="tri"></span></span><span class="tile-num">02</span></div>
-<div class="tile"><span class="tile-frame"><span class="tri"></span></span><span class="tile-num">03</span></div>
-<div class="tile"><span class="tile-frame"><span class="tri"></span></span><span class="tile-num">04</span></div>
-<div class="tile"><span class="tile-frame"><span class="tri"></span></span><span class="tile-num">05</span></div>
-<div class="tile"><span class="tile-frame"><span class="tri"></span></span><span class="tile-num">06</span></div>
-<div class="tile"><span class="tile-frame"><span class="tri"></span></span><span class="tile-num">07</span></div>
-<div class="tile"><span class="tile-frame"><span class="tri"></span></span><span class="tile-num">08</span></div>
-<div class="tile"><span class="tile-frame"><span class="tri"></span></span><span class="tile-num">09</span></div>
-<div class="tile"><span class="tile-frame"><span class="tri"></span></span><span class="tile-num">10</span></div>
-          </div>
-        </div>
-        </div>
-        <p class="m-eq"><span class="accent">10 &times; 10 &times; 10 = 1,000</span> structural combinations</p>
-        <div class="m-bottom">
-          <div class="m-box">
-            <p class="m-head">35 title hooks</p>
-            <div class="hook on">Hook style 01</div>
-            <div class="hook">Hook style 02</div>
-            <div class="hook">Hook style 03</div>
-            <p class="more">&middot;&middot;&middot;</p>
-          </div>
-          <span class="m-op">+</span>
-          <div class="m-box">
-            <p class="m-head">10 audio tracks</p>
-            <div class="track on"><span class="track-play"><span class="tri"></span></span><span class="wave"><i style="height:35%"></i><i style="height:90%"></i><i style="height:26%"></i><i style="height:50%"></i><i style="height:33%"></i><i style="height:81%"></i><i style="height:75%"></i><i style="height:78%"></i><i style="height:66%"></i><i style="height:44%"></i><i style="height:30%"></i><i style="height:80%"></i><i style="height:21%"></i><i style="height:67%"></i><i style="height:73%"></i><i style="height:95%"></i><i style="height:18%"></i><i style="height:75%"></i><i style="height:52%"></i><i style="height:47%"></i><i style="height:93%"></i><i style="height:31%"></i><i style="height:58%"></i><i style="height:21%"></i><i style="height:20%"></i><i style="height:21%"></i><i style="height:87%"></i><i style="height:19%"></i><i style="height:66%"></i><i style="height:45%"></i><i style="height:72%"></i><i style="height:21%"></i><i style="height:85%"></i><i style="height:46%"></i><i style="height:74%"></i><i style="height:81%"></i><i style="height:88%"></i><i style="height:47%"></i><i style="height:62%"></i><i style="height:47%"></i></span></div>
-            <div class="track"><span class="track-play"><span class="tri"></span></span><span class="wave"><i style="height:25%"></i><i style="height:29%"></i><i style="height:28%"></i><i style="height:64%"></i><i style="height:39%"></i><i style="height:57%"></i><i style="height:50%"></i><i style="height:95%"></i><i style="height:45%"></i><i style="height:95%"></i><i style="height:22%"></i><i style="height:92%"></i><i style="height:38%"></i><i style="height:73%"></i><i style="height:99%"></i><i style="height:68%"></i><i style="height:83%"></i><i style="height:65%"></i><i style="height:87%"></i><i style="height:74%"></i><i style="height:82%"></i><i style="height:52%"></i><i style="height:22%"></i><i style="height:21%"></i><i style="height:64%"></i><i style="height:77%"></i><i style="height:58%"></i><i style="height:66%"></i><i style="height:72%"></i><i style="height:85%"></i><i style="height:39%"></i><i style="height:89%"></i><i style="height:40%"></i><i style="height:48%"></i><i style="height:47%"></i><i style="height:21%"></i><i style="height:40%"></i><i style="height:59%"></i><i style="height:40%"></i><i style="height:35%"></i></span></div>
-            <div class="track"><span class="track-play"><span class="tri"></span></span><span class="wave"><i style="height:48%"></i><i style="height:93%"></i><i style="height:87%"></i><i style="height:34%"></i><i style="height:65%"></i><i style="height:95%"></i><i style="height:78%"></i><i style="height:98%"></i><i style="height:92%"></i><i style="height:26%"></i><i style="height:95%"></i><i style="height:19%"></i><i style="height:78%"></i><i style="height:51%"></i><i style="height:88%"></i><i style="height:47%"></i><i style="height:42%"></i><i style="height:78%"></i><i style="height:87%"></i><i style="height:88%"></i><i style="height:78%"></i><i style="height:68%"></i><i style="height:99%"></i><i style="height:37%"></i><i style="height:47%"></i><i style="height:99%"></i><i style="height:37%"></i><i style="height:84%"></i><i style="height:67%"></i><i style="height:19%"></i><i style="height:26%"></i><i style="height:38%"></i><i style="height:93%"></i><i style="height:23%"></i><i style="height:56%"></i><i style="height:21%"></i><i style="height:52%"></i><i style="height:78%"></i><i style="height:94%"></i><i style="height:67%"></i></span></div>
-            <p class="more">&middot;&middot;&middot;</p>
-          </div>
-          <span class="m-op">=</span>
-          <p class="m-result">Infinite<br>variations.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="wrap">
-    <div class="contrast">
-      <div class="them">
-        <p class="label">Them</p>
-        <p class="display display-md">One prompt, a thousand slop videos.</p>
-      </div>
-      <div class="you">
-        <p class="label">You</p>
-        <p class="display display-md">One shoot, a thousand real ones.</p>
-      </div>
+      <figure class="how-img">
+        <img src="img/how-it-works.png" width="1499" height="921" alt="10 intros times 10 bodies times 10 CTAs or outros gives 1,000 structural combinations. Add 35 title hooks and 10 audio tracks for infinite variations.">
+      </figure>
     </div>
   </section>
 
