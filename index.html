@@ -11,6 +11,13 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
 @font-face {
+  font-family: 'Special Elite';
+  src: url('fonts/special-elite-400.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
   font-family: 'PODIUM Sharp';
   src: url('fonts/podium-sharp.otf') format('opentype');
   font-weight: 1000;
@@ -19,20 +26,24 @@
 }
 
 :root {
-  --bg: #161215;
-  --surface1: #1e1a1d;
-  --surface2: #2A2427;
-  --surface3: #3D3538;
-  --border-visible: #2A2427;
-  --text1: #FFFFFF;
-  --text2: #D0C1B7;
-  --text3: #A89888;
-  --text4: #7A6E64;
-  --accent: #EAABFE;
-  --accent-subtle: #240A35;
+  /* Brute Force palette: see projects/bruteforce/brand-bible.md */
+  --paper: #E0A0A8;
+  --red: #AF3131;
+  --ink: #33337A;
+  --line: #2C0A0A;
+
+  --bg: var(--paper);
+  --surface1: var(--paper);
+  --border-visible: var(--line);
+  --text1: var(--red);
+  --text2: var(--ink);
+  --text3: var(--ink);
+  --text4: var(--line);
+  --accent: var(--red);
 
   --font-logo: 'PODIUM Sharp', 'Arial Black', 'Impact', sans-serif;
-  --font-body: 'Inter', -apple-system, sans-serif;
+  --font-body: 'Special Elite', 'Courier New', monospace;
+  --font-title: 'Inter', -apple-system, sans-serif;
 
   --space-sm: 8px;
   --space-md: 16px;
@@ -58,7 +69,7 @@ body {
   background: var(--bg);
   color: var(--text2);
   font-family: var(--font-body);
-  font-weight: 300;
+  font-weight: 400;
   font-size: 16px;
   line-height: 1.7;
   -webkit-font-smoothing: antialiased;
@@ -67,7 +78,7 @@ body {
 
 a { color: inherit; text-decoration: none; }
 
-:focus-visible { outline: 1px solid var(--accent); outline-offset: 2px; }
+:focus-visible { outline: 1px solid var(--line); outline-offset: 2px; }
 
 /* Type: PODIUM Sharp is the logo font only. Headlines are Inter. */
 .logo-type {
@@ -79,7 +90,7 @@ a { color: inherit; text-decoration: none; }
   color: var(--text1);
 }
 .display {
-  font-family: var(--font-body);
+  font-family: var(--font-title);
   font-weight: 400;
   line-height: 1;
   letter-spacing: -0.04em;
@@ -89,7 +100,7 @@ a { color: inherit; text-decoration: none; }
 .display-lg { font-size: clamp(40px, 6vw, 88px); }
 .display-md { font-size: clamp(30px, 3.6vw, 52px); }
 .display-sm { font-size: clamp(24px, 2.4vw, 34px); letter-spacing: -0.03em; line-height: 1.1; }
-.accent { color: var(--accent); }
+.accent { color: var(--ink); }
 
 .label {
   font-size: 11px;
@@ -104,9 +115,9 @@ a { color: inherit; text-decoration: none; }
   display: inline-block;
   min-height: 44px;
   padding: 16px 40px;
-  border: 1px solid var(--accent);
+  border: 1px solid var(--red);
   background: transparent;
-  color: var(--accent);
+  color: var(--line);
   font-family: var(--font-body);
   font-size: 11px;
   font-weight: 400;
@@ -115,17 +126,20 @@ a { color: inherit; text-decoration: none; }
   cursor: pointer;
   transition: background var(--duration-normal) var(--ease), color var(--duration-normal) var(--ease);
 }
-.btn-bordered:hover { background: var(--accent); color: var(--bg); }
+.btn-bordered:hover { background: var(--line); border-color: var(--line); color: var(--paper); }
 
 .btn-text {
   font-size: 11px;
   font-weight: 400;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--accent);
+  color: var(--line);
+  text-decoration: underline;
+  text-decoration-color: var(--red);
+  text-underline-offset: 4px;
   transition: color var(--duration-fast) var(--ease);
 }
-.btn-text:hover { color: var(--text1); }
+.btn-text:hover { color: var(--red); }
 
 /* Nav */
 nav {
@@ -192,7 +206,7 @@ nav {
   font-weight: 400;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--text1);
+  color: var(--line);
 }
 
 /* Steps */
@@ -231,7 +245,7 @@ nav {
   flex-direction: column;
   transition: border-color var(--duration-normal) var(--ease);
 }
-.tier:hover { border-color: var(--accent); }
+.tier:hover { border-color: var(--red); }
 .tier .step-num { margin-bottom: var(--space-lg); }
 .tier h3 { margin-bottom: var(--space-lg); }
 .tier-desc { font-size: 15px; color: var(--text3); margin-bottom: var(--space-xl); max-width: 440px; }
