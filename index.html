@@ -8,19 +8,12 @@
 <meta name="description" content="Human-made talking heads in infinite variations.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
 <style>
 @font-face {
   font-family: 'Special Elite';
   src: url('fonts/special-elite-400.woff2') format('woff2');
   font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: 'PODIUM Sharp';
-  src: url('fonts/podium-sharp.otf') format('opentype');
-  font-weight: 1000;
   font-style: normal;
   font-display: swap;
 }
@@ -32,367 +25,383 @@
   --ink: #33337A;
   --line: #2C0A0A;
 
-  --bg: var(--paper);
-  --surface1: var(--paper);
-  --border-visible: var(--line);
-  --text1: var(--red);
-  --text2: var(--ink);
-  --text3: var(--ink);
-  --text4: var(--line);
-  --accent: var(--red);
-
-  --font-logo: 'PODIUM Sharp', 'Arial Black', 'Impact', sans-serif;
+  --font-title: 'Anton', 'Bebas Neue', 'Impact', sans-serif;
   --font-body: 'Special Elite', 'Courier New', monospace;
-  --font-title: 'Inter', -apple-system, sans-serif;
 
-  --space-sm: 8px;
-  --space-md: 16px;
-  --space-lg: 24px;
-  --space-xl: 32px;
-  --space-2xl: 48px;
-  --space-3xl: 64px;
-  --space-4xl: 96px;
-  --space-5xl: 128px;
-  --space-6xl: 192px;
-
-  --gutter: 48px;
+  --rule: 1.5px solid var(--line);
+  --spine: 132px;
+  --gutter: 40px;
+  --cell: 20px;
   --ease: cubic-bezier(0.25, 0, 0, 1);
-  --duration-fast: 150ms;
-  --duration-normal: 300ms;
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; border-radius: 0; }
 
-html { background: var(--bg); }
+html { background: var(--paper); }
 
 body {
-  background: var(--bg);
-  color: var(--text2);
+  background: var(--paper);
+  color: var(--ink);
   font-family: var(--font-body);
   font-weight: 400;
   font-size: 16px;
-  line-height: 1.7;
-  -webkit-font-smoothing: antialiased;
+  line-height: 1.6;
   overflow-x: hidden;
 }
 
-a { color: inherit; text-decoration: none; }
-
-:focus-visible { outline: 1px solid var(--line); outline-offset: 2px; }
-
-/* Type: PODIUM Sharp is the logo font only. Headlines are Inter. */
-.logo-type {
-  font-family: var(--font-logo);
-  font-weight: 1000;
-  font-stretch: 200%;
-  text-transform: uppercase;
-  letter-spacing: -0.01em;
-  color: var(--text1);
+/* Paper grit: mottle, fine grain and specks, laid over everything */
+body::before,
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 50;
 }
-.display {
+body::before {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='900' height='900'%3E%3Cfilter id='m'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.02' stitchTiles='stitch' numOctaves='3' seed='4'/%3E%3CfeColorMatrix values='0 0 0 0 0.35 0 0 0 0 0.08 0 0 0 0 0.1 0 0 0 0.7 -0.22'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23m)'/%3E%3C/svg%3E");
+  background-size: 900px 900px;
+  mix-blend-mode: multiply;
+  opacity: 0.3;
+}
+body::after {
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='260'%3E%3Cfilter id='s'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='1' seed='9'/%3E%3CfeColorMatrix values='0 0 0 0 0.17 0 0 0 0 0.04 0 0 0 0 0.04 0 0 0 16 -10.9'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23s)'/%3E%3C/svg%3E"),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.2 0 0 0 0 0.05 0 0 0 0 0.06 0 0 0 0.9 -0.28'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
+  background-size: 260px 260px, 220px 220px;
+  mix-blend-mode: multiply;
+  opacity: 0.6;
+}
+
+a { color: inherit; text-decoration: none; }
+:focus-visible { outline: 2px solid var(--line); outline-offset: 3px; }
+
+/* Spine: the brand name runs top down, cropped at the left edge */
+.spine {
+  position: fixed;
+  top: -0.04em;
+  left: 0;
+  z-index: 5;
+  font-family: var(--font-title);
+  font-size: 196px;
+  line-height: 0.82;
+  color: var(--red);
+  text-transform: uppercase;
+  writing-mode: vertical-rl;
+  white-space: nowrap;
+  transform: translateX(-36%);
+  pointer-events: none;
+  user-select: none;
+}
+
+/* The sheet: one ruled form, like the Field Guide cover */
+.sheet {
+  margin: var(--gutter) var(--gutter) var(--gutter) var(--spine);
+  border: var(--rule);
+}
+.row { border-top: var(--rule); display: grid; }
+.row:first-child { border-top: 0; }
+.cell { padding: var(--cell); min-width: 0; }
+.cell + .cell { border-left: var(--rule); }
+
+.lbl {
+  display: block;
+  font-size: 13px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--line);
+  line-height: 1.3;
+}
+.val {
+  display: block;
+  text-align: right;
+  font-size: 17px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink);
+  margin-top: 6px;
+}
+
+.title {
   font-family: var(--font-title);
   font-weight: 400;
-  line-height: 1;
-  letter-spacing: -0.04em;
-  color: var(--text1);
-}
-.display-xl { font-size: clamp(44px, 7vw, 112px); }
-.display-lg { font-size: clamp(40px, 6vw, 88px); }
-.display-md { font-size: clamp(30px, 3.6vw, 52px); }
-.display-sm { font-size: clamp(24px, 2.4vw, 34px); letter-spacing: -0.03em; line-height: 1.1; }
-.accent { color: var(--ink); }
-
-.label {
-  font-size: 11px;
-  font-weight: 400;
-  letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--text4);
+  color: var(--red);
+  line-height: 0.95;
+  letter-spacing: 0.005em;
+}
+.title .accent { color: var(--ink); }
+
+.caps {
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 15px;
+  line-height: 1.55;
 }
 
-/* Buttons */
-.btn-bordered {
+/* Hero rows */
+.r-meta { grid-template-columns: 1.1fr 1fr 1fr; }
+.r-meta .cell:first-child { display: flex; align-items: center; gap: var(--cell); }
+.stamp {
   display: inline-block;
-  min-height: 44px;
-  padding: 16px 40px;
-  border: 1px solid var(--red);
-  background: transparent;
+  font-family: var(--font-title);
+  font-size: 20px;
+  line-height: 1;
+  text-transform: uppercase;
+  color: var(--red);
+  border: 2px solid var(--red);
+  outline: 1px solid var(--red);
+  outline-offset: 3px;
+  padding: 6px 10px 5px;
+  transform: rotate(-7deg);
+  opacity: 0.9;
+}
+
+.r-batch { grid-template-columns: 170px 1fr; }
+.r-batch .cell + .cell { border-left: 0; padding-left: 0; }
+
+.r-title .cell { padding-bottom: 30px; }
+.r-title h1 {
+  font-size: clamp(46px, min(6vw, 10.5vh), 100px);
+  text-align: center;
+  max-width: 13em;
+  margin: 16px auto 0;
+}
+
+.r-intro .cell { padding-bottom: 22px; }
+.r-intro p { max-width: 62ch; margin: 14px 0 0 clamp(0px, 3vw, 40px); }
+.proof { color: var(--line); }
+
+.r-sign { grid-template-columns: 1.6fr 1fr; }
+.r-sign .by {
+  font-family: var(--font-title);
+  font-size: 34px;
+  line-height: 1.05;
+  text-transform: uppercase;
   color: var(--line);
-  font-family: var(--font-body);
-  font-size: 11px;
-  font-weight: 400;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  cursor: pointer;
-  transition: background var(--duration-normal) var(--ease), color var(--duration-normal) var(--ease);
+  text-align: center;
+  margin-top: 4px;
 }
-.btn-bordered:hover { background: var(--line); border-color: var(--line); color: var(--paper); }
+.r-sign .cell:last-child { display: flex; align-items: center; justify-content: center; }
 
-.btn-text {
-  font-size: 11px;
-  font-weight: 400;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--line);
-  text-decoration: underline;
-  text-decoration-color: var(--red);
-  text-underline-offset: 4px;
-  transition: color var(--duration-fast) var(--ease);
-}
-.btn-text:hover { color: var(--red); }
-
-/* Nav */
-nav {
-  position: fixed;
-  top: 0; left: 0; right: 0;
-  z-index: 10;
-  background: var(--bg);
-  border-bottom: 1px solid var(--border-visible);
-}
-.nav-inner {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: var(--space-lg) var(--gutter);
-}
-.logo { font-size: 18px; }
-
-/* Layout */
-.wrap { padding-left: var(--gutter); padding-right: var(--gutter); }
-
-.section { padding-top: var(--space-4xl); padding-bottom: var(--space-4xl); }
-.section-border {
-  border-top: 1px solid var(--border-visible);
-  padding-top: var(--space-3xl);
-}
-.section-label {
-  font-size: 11px;
-  font-weight: 400;
-  letter-spacing: 0.25em;
-  text-transform: uppercase;
-  color: var(--text4);
-  margin-bottom: var(--space-2xl);
-}
-
-/* Hero */
-.hero {
-  min-height: 100vh;
-  min-height: 100svh;
-  display: flex;
+/* Diamond badge CTA */
+.badge {
+  position: relative;
+  display: inline-flex;
   flex-direction: column;
-  justify-content: flex-end;
-  padding-top: 120px;
-  padding-bottom: var(--space-3xl);
+  align-items: center;
+  justify-content: center;
+  width: 200px;
+  height: 92px;
+  text-align: center;
+  color: var(--red);
+  transition: color 200ms var(--ease);
 }
-.hero .label { margin-bottom: var(--space-xl); }
-.hero h1 { margin-bottom: var(--space-2xl); max-width: 14em; }
-.hero-foot {
-  display: grid;
-  grid-template-columns: 1fr auto;
-  gap: var(--space-2xl);
-  align-items: end;
-  border-top: 1px solid var(--border-visible);
-  padding-top: var(--space-xl);
-}
-.hero-sub {
-  max-width: 560px;
-  font-size: 18px;
-  line-height: 1.6;
-  color: var(--text2);
-}
-.hero-proof {
-  margin-top: var(--space-lg);
-  font-size: 11px;
-  font-weight: 400;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--line);
-}
+.badge svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.badge polygon { fill: none; stroke: var(--red); stroke-width: 2; transition: fill 200ms var(--ease); }
+.badge .b-main { position: relative; font-family: var(--font-title); font-size: 26px; line-height: 1; text-transform: uppercase; }
+.badge .b-sub { position: relative; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--line); margin-top: 4px; }
+.badge:hover polygon { fill: var(--red); }
+.badge:hover { color: var(--paper); }
+.badge:hover .b-sub { color: var(--paper); }
 
-/* Steps */
-.steps {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: var(--space-2xl);
-  margin-bottom: var(--space-4xl);
-}
-.step-num {
-  font-size: 10px;
-  font-weight: 400;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-  color: var(--text4);
-  margin-bottom: var(--space-md);
-}
-.step h3 { margin-bottom: var(--space-md); }
-.step p { font-size: 15px; color: var(--text3); max-width: 360px; }
+/* Lower sections */
+.r-steps { grid-template-columns: repeat(3, 1fr); }
+.step h2 { font-size: clamp(28px, 2.6vw, 40px); margin: 22px 0 10px; }
+.step p { max-width: 34ch; }
 
-/* How it works image */
-.how-img { border: 1px solid var(--border-visible); }
+.r-img .cell { padding: var(--cell); }
+.how-img { margin-top: 18px; border: var(--rule); }
 .how-img img { display: block; width: 100%; height: auto; }
 
-/* Pricing */
-.tiers {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: var(--space-xl);
-}
-.tier {
-  background: var(--surface1);
-  border: 1px solid var(--border-visible);
-  padding: var(--space-2xl);
-  display: flex;
-  flex-direction: column;
-  transition: border-color var(--duration-normal) var(--ease);
-}
-.tier:hover { border-color: var(--red); }
-.tier .step-num { margin-bottom: var(--space-lg); }
-.tier h3 { margin-bottom: var(--space-lg); }
-.tier-desc { font-size: 15px; color: var(--text3); margin-bottom: var(--space-xl); max-width: 440px; }
-.tier ul {
-  list-style: none;
-  border-top: 1px solid var(--border-visible);
-  margin-bottom: var(--space-2xl);
-}
-.tier li {
-  font-size: 15px;
-  color: var(--text2);
-  padding: var(--space-md) 0;
-  border-bottom: 1px solid var(--border-visible);
-}
-.tier .btn-text { margin-top: auto; }
+.r-tiers { grid-template-columns: 1fr 1fr; }
+.tier { display: flex; flex-direction: column; }
+.tier h2 { font-size: clamp(32px, 3.2vw, 52px); margin: 22px 0 12px; }
+.tier ul { list-style: none; margin: 22px 0 28px; border-top: 1px solid var(--line); }
+.tier li { padding: 10px 0; border-bottom: 1px solid var(--line); }
+.tier .btn { margin-top: auto; align-self: flex-start; }
 
-/* Final CTA */
-.cta {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: var(--space-3xl);
-  align-items: end;
-  padding: var(--space-6xl) 0;
-  border-top: 1px solid var(--border-visible);
+.btn {
+  display: inline-block;
+  min-height: 44px;
+  padding: 13px 28px 11px;
+  border: 2px solid var(--red);
+  font-size: 13px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--line);
+  transition: background 200ms var(--ease), color 200ms var(--ease);
 }
-.cta p { font-size: 15px; color: var(--text3); max-width: 400px; margin-bottom: var(--space-xl); }
+.btn:hover { background: var(--line); border-color: var(--line); color: var(--paper); }
 
-/* Footer */
+.r-cta { grid-template-columns: 1.4fr 1fr; }
+.r-cta h2 { font-size: clamp(44px, 5.6vw, 92px); margin-top: 22px; }
+.r-cta .cell:last-child { display: flex; flex-direction: column; justify-content: flex-end; align-items: flex-start; gap: 20px; }
+
 footer {
-  border-top: 1px solid var(--border-visible);
-  padding: var(--space-2xl) var(--gutter);
+  margin: 0 var(--gutter) var(--gutter) var(--spine);
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  gap: var(--space-md);
+  gap: 16px;
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--line);
 }
-footer .logo-type { font-size: 14px; color: var(--text4); }
 
 @media (max-width: 900px) {
-  :root { --gutter: 16px; }
-  .nav-inner { padding: var(--space-md) var(--gutter); }
-  .hero-foot { grid-template-columns: 1fr; }
-  .hero-foot .btn-bordered { justify-self: start; }
-  .steps { grid-template-columns: 1fr; gap: var(--space-3xl); margin-bottom: var(--space-3xl); }
-  .tiers { grid-template-columns: 1fr; }
-  .tier { padding: var(--space-xl) var(--space-lg); }
-  .cta { grid-template-columns: 1fr; padding: var(--space-5xl) 0; }
-  footer { flex-direction: column; align-items: flex-start; }
+  :root { --spine: 58px; --gutter: 14px; --cell: 14px; }
+  .spine { font-size: 92px; }
+  .r-meta { grid-template-columns: 1.2fr 1fr 1fr; }
+  .r-meta .cell:first-child { flex-direction: column; align-items: flex-start; gap: 10px; }
+  .stamp { font-size: 15px; }
+  .val { font-size: 14px; text-align: left; }
+  .lbl { font-size: 11px; }
+  .r-batch { grid-template-columns: 1fr; }
+  .r-batch .cell + .cell { padding-top: 0; padding-left: var(--cell); }
+  .r-title h1 { font-size: clamp(40px, 11vw, 64px); }
+  .caps { font-size: 13px; }
+  .r-intro p { margin-left: 0; }
+  .r-sign, .r-steps, .r-tiers, .r-cta { grid-template-columns: 1fr; }
+  .r-sign .cell + .cell, .r-steps .cell + .cell, .r-tiers .cell + .cell, .r-cta .cell + .cell {
+    border-left: 0;
+    border-top: var(--rule);
+  }
+  .r-sign .cell:last-child { padding: 28px var(--cell); }
+  footer { flex-direction: column; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; }
 }
 </style>
 </head>
 <body>
 
-<nav>
-  <div class="nav-inner">
-    <a href="#" class="logo logo-type">Bruteforce</a>
-    <a href="#book" class="btn-text">[Book a Call]</a>
-  </div>
-</nav>
+<div class="spine" aria-hidden="true">Brute Force</div>
 
-<main>
+<main class="sheet">
 
-  <header class="hero wrap">
-    <p class="label">Human-made content at machine volume</p>
-    <h1 class="display display-xl">We're being buried in AI slop. We create <span class="accent">original human content</span> at scale.</h1>
-    <div class="hero-foot">
-      <div>
-        <p class="hero-sub">AI slop wins on volume alone. Brute Force gives that volume to real people. Ten clips of a human on camera become endless unique edits, so you can answer every stream of slop with something real.</p>
-        <p class="hero-proof">10 clips in. Infinite unique videos out.</p>
+  <header>
+    <div class="row r-meta">
+      <div class="cell">
+        <span class="lbl">Approval</span>
+        <span class="stamp">Human made</span>
       </div>
-      <a href="#book" class="btn-bordered">[Book a Call]</a>
+      <div class="cell">
+        <span class="lbl">Issue no.</span>
+        <span class="val">001</span>
+      </div>
+      <div class="cell">
+        <span class="lbl">Output</span>
+        <span class="val">Infinite</span>
+      </div>
+    </div>
+
+    <div class="row r-batch">
+      <div class="cell"><span class="lbl">Batch</span></div>
+      <div class="cell"><p class="caps">Human-made content at machine volume.</p></div>
+    </div>
+
+    <div class="row r-title">
+      <div class="cell">
+        <span class="lbl">Incoming message</span>
+        <h1 class="title">We're being buried in AI slop. We create <span class="accent">original human content</span> at scale.</h1>
+      </div>
+    </div>
+
+    <div class="row r-intro">
+      <div class="cell">
+        <span class="lbl">Introduction</span>
+        <p class="caps">AI slop wins on volume alone. Brute Force gives that volume to real people. Ten clips of a human on camera become endless unique edits, so you can answer every stream of slop with something real.</p>
+        <p class="caps proof">10 clips in. Infinite unique videos out.</p>
+      </div>
+    </div>
+
+    <div class="row r-sign">
+      <div class="cell">
+        <span class="lbl">Written &amp; developed by</span>
+        <p class="by">Brute Force</p>
+      </div>
+      <div class="cell">
+        <a href="#book" class="badge">
+          <svg viewBox="0 0 200 92" preserveAspectRatio="none" aria-hidden="true"><polygon points="100,2 198,46 100,90 2,46"/></svg>
+          <span class="b-main">Book a call</span>
+          <span class="b-sub">Brute Force</span>
+        </a>
+      </div>
     </div>
   </header>
 
-  <section class="section wrap" id="how">
-    <div class="section-border">
-      <p class="section-label">How it works</p>
-      <div class="steps">
-        <div class="step">
-          <p class="step-num">01</p>
-          <h3 class="display display-sm">You shoot.</h3>
-          <p>Real people, real footage, your taste.</p>
-        </div>
-        <div class="step">
-          <p class="step-num">02</p>
-          <h3 class="display display-sm">We cut it into blocks.</h3>
-          <p>Hooks, intros, bodies, outros, music.</p>
-        </div>
-        <div class="step">
-          <p class="step-num">03</p>
-          <h3 class="display display-sm">The engine builds every combination.</h3>
-          <p>Hundreds of edits per run, ready to post or run as ads.</p>
-        </div>
-      </div>
+  <section class="row r-steps" id="how" aria-label="How it works">
+    <div class="cell step">
+      <span class="lbl">How it works / 01</span>
+      <h2 class="title">You shoot.</h2>
+      <p>Real people, real footage, your taste.</p>
+    </div>
+    <div class="cell step">
+      <span class="lbl">How it works / 02</span>
+      <h2 class="title">We cut it into blocks.</h2>
+      <p>Hooks, intros, bodies, outros, music.</p>
+    </div>
+    <div class="cell step">
+      <span class="lbl">How it works / 03</span>
+      <h2 class="title">The engine builds every combination.</h2>
+      <p>Hundreds of edits per run, ready to post or run as ads.</p>
+    </div>
+  </section>
 
+  <section class="row r-img">
+    <div class="cell">
+      <span class="lbl">The math</span>
       <figure class="how-img">
         <img src="img/how-it-works.png" width="1499" height="921" alt="10 intros times 10 bodies times 10 CTAs or outros gives 1,000 structural combinations. Add 35 title hooks and 10 audio tracks for infinite variations.">
       </figure>
     </div>
   </section>
 
-  <section class="section wrap" id="pricing">
-    <div class="section-border">
-      <p class="section-label">Two ways in</p>
-      <div class="tiers">
-        <div class="tier">
-          <p class="step-num">01</p>
-          <h3 class="display display-sm">You shoot. We multiply.</h3>
-          <p class="tier-desc">You record the talking heads and send us the videos. We create the infinite variations.</p>
-          <ul>
-            <li>You record and deliver the videos</li>
-            <li>We cut your footage into blocks</li>
-            <li>We create the infinite variations</li>
-          </ul>
-          <a href="#book" class="btn-text">[Book a Call]</a>
-        </div>
-        <div class="tier">
-          <p class="step-num">02</p>
-          <h3 class="display display-sm">We do all of it.</h3>
-          <p class="tier-desc">We hold your hand from the first script to the last variation.</p>
-          <ul>
-            <li>Script</li>
-            <li>Pre-production</li>
-            <li>Shoot and direction</li>
-            <li>The infinite variations, in bulk</li>
-          </ul>
-          <a href="#book" class="btn-text">[Book a Call]</a>
-        </div>
-      </div>
+  <section class="row r-tiers" id="pricing" aria-label="Two ways in">
+    <div class="cell tier">
+      <span class="lbl">Two ways in / 01</span>
+      <h2 class="title">You shoot. We multiply.</h2>
+      <p>You record the talking heads and send us the videos. We create the infinite variations.</p>
+      <ul>
+        <li>You record and deliver the videos</li>
+        <li>We cut your footage into blocks</li>
+        <li>We create the infinite variations</li>
+      </ul>
+      <a href="#book" class="btn">[Book a Call]</a>
+    </div>
+    <div class="cell tier">
+      <span class="lbl">Two ways in / 02</span>
+      <h2 class="title">We do all of it.</h2>
+      <p>We hold your hand from the first script to the last variation.</p>
+      <ul>
+        <li>Script</li>
+        <li>Pre-production</li>
+        <li>Shoot and direction</li>
+        <li>The infinite variations, in bulk</li>
+      </ul>
+      <a href="#book" class="btn">[Book a Call]</a>
     </div>
   </section>
 
-  <section class="wrap" id="book">
-    <div class="cta">
-      <h2 class="display display-lg">Answer the slop with a <span class="accent">real</span> face.</h2>
-      <div>
-        <p>For brands running paid social and creators sitting on real footage.</p>
-        <a href="#book" class="btn-bordered">[Book a Call]</a>
-      </div>
+  <section class="row r-cta" id="book">
+    <div class="cell">
+      <span class="lbl">Reply requested</span>
+      <h2 class="title">Answer the slop with a <span class="accent">real</span> face.</h2>
+    </div>
+    <div class="cell">
+      <p>For brands running paid social and creators sitting on real footage.</p>
+      <a href="#book" class="btn">[Book a Call]</a>
     </div>
   </section>
 
 </main>
 
 <footer>
-  <span class="logo-type">Bruteforce</span>
-  <span class="label">Human-made at machine volume</span>
+  <span>Brute Force</span>
+  <span>Human-made at machine volume</span>
 </footer>
 
 </body>
