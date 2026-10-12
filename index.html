@@ -41,7 +41,7 @@
   --spine-size: calc(100vh / 12.1);
   --spine: calc(var(--spine-size) * 0.62 + 30px);
   --gutter: 40px;
-  --cell: 20px;
+  --cell: 16px;
   --ease: cubic-bezier(0.25, 0, 0, 1);
 }
 
@@ -88,7 +88,7 @@ a { color: inherit; text-decoration: none; }
 
 /* The sheet: one ruled form, like the Field Guide cover */
 .sheet {
-  margin: var(--gutter) var(--gutter) var(--gutter) var(--spine);
+  margin: 0 var(--gutter) var(--gutter) var(--spine);
   border: var(--rule);
 }
 .row { border-top: var(--rule); display: grid; }
@@ -152,16 +152,16 @@ a { color: inherit; text-decoration: none; }
 .r-batch { grid-template-columns: 170px 1fr; }
 .r-batch .cell + .cell { border-left: 0; padding-left: 0; }
 
-.r-title .cell { padding-bottom: 30px; }
+.r-title .cell { padding-bottom: 20px; }
 .r-title h1 {
   font-size: clamp(46px, min(6vw, 10.5vh), 100px);
   text-align: center;
   max-width: 13em;
-  margin: 16px auto 0;
+  margin: 8px auto 0;
 }
 
-.r-intro .cell { padding-bottom: 22px; }
-.r-intro p { max-width: 62ch; margin: 14px 0 0 clamp(0px, 3vw, 40px); }
+.r-intro .cell { padding-bottom: 14px; }
+.r-intro p { max-width: 62ch; margin: 8px 0 0 clamp(0px, 3vw, 40px); }
 .intro { font-size: 17px; line-height: 1.6; }
 .proof { color: var(--line); }
 
@@ -177,7 +177,11 @@ a { color: inherit; text-decoration: none; }
   text-align: center;
   margin-top: 4px;
 }
+.r-sign .cell { padding-top: 10px; padding-bottom: 10px; }
 .r-sign .cell:last-child { display: flex; align-items: center; justify-content: center; }
+.r-sign .badge { width: 200px; height: 70px; }
+.r-sign .badge .b-main { font-size: 19px; }
+.r-sign .badge .b-sub { font-size: 9px; margin-top: 2px; }
 
 /* Diamond badge CTA */
 .badge {
@@ -203,10 +207,10 @@ a { color: inherit; text-decoration: none; }
 /* Client carousel, as on vtcn.mov */
 .r-clients .cell { text-align: center; }
 .r-clients .lbl { text-align: left; }
-.clients-copy { margin: 12px auto 24px; font-size: 16px; text-wrap: balance; }
+.clients-copy { margin: 4px auto 14px; font-size: 16px; text-wrap: balance; }
 .carousel {
   max-width: 920px;
-  margin: 0 auto 6px;
+  margin: 0 auto;
   overflow: hidden;
   mask-image: linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%);
   -webkit-mask-image: linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%);
