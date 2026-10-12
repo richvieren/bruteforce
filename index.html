@@ -271,6 +271,17 @@ a { color: inherit; text-decoration: none; }
 .r-cta { grid-template-columns: 1.4fr 1fr; }
 .r-cta h2 { font-size: clamp(44px, 5.6vw, 92px); margin-top: 22px; }
 .r-cta .cell:last-child { display: flex; flex-direction: column; justify-content: flex-end; align-items: flex-start; gap: 20px; }
+.fit { align-self: stretch; }
+.fit ul { list-style: none; margin-top: 10px; border-top: 1px solid var(--line); }
+.fit li {
+  font-family: var(--font-title);
+  font-size: clamp(24px, 2.2vw, 32px);
+  line-height: 1.1;
+  text-transform: uppercase;
+  color: var(--red);
+  padding: 10px 0 8px;
+  border-bottom: 1px solid var(--line);
+}
 
 footer {
   margin: 0 var(--gutter) var(--gutter) var(--spine);
@@ -458,6 +469,14 @@ footer {
       <h2 class="title">Answer the slop with a <span class="accent">real</span> face.</h2>
     </div>
     <div class="cell">
+      <div class="fit">
+        <span class="lbl">Built for</span>
+        <ul>
+          <li>Trial reels</li>
+          <li>UGC content</li>
+          <li>Ad variations at scale</li>
+        </ul>
+      </div>
       <p>For brands running paid social and creators sitting on real footage.</p>
       <a href="#book" class="btn">[Book a Call]</a>
     </div>
