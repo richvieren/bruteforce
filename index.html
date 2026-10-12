@@ -37,8 +37,8 @@
   --font-logo: 'PODIUM Sharp', 'Arial Black', sans-serif;
 
   --rule: 1.5px solid var(--line);
-  /* the whole wordmark fits the screen height */
-  --spine-size: calc((100vh - 48px) / 12.6);
+  /* the wordmark runs the full screen height; the script below sets the exact size */
+  --spine-size: calc(100vh / 12.1);
   --spine: calc(var(--spine-size) * 0.62 + 30px);
   --gutter: 40px;
   --cell: 20px;
@@ -69,7 +69,7 @@ a { color: inherit; text-decoration: none; }
 /* Spine: the brand name runs top down, cropped at the left edge */
 .spine {
   position: fixed;
-  top: 24px;
+  top: 0;
   left: 0;
   z-index: 5;
   font-family: var(--font-logo);
@@ -291,7 +291,6 @@ footer {
 
 @media (max-width: 900px) {
   :root { --spine: calc(var(--spine-size) * 0.62 + 10px); --gutter: 14px; --cell: 14px; }
-  .spine { top: 14px; }
   .r-meta { grid-template-columns: 1.2fr 1fr 1fr; }
   .r-meta .cell:first-child { flex-direction: column; align-items: flex-start; gap: 10px; }
   .stamp { font-size: 15px; }
@@ -467,6 +466,19 @@ footer {
 </main>
 
 <script>
+  // Spine: scale the wordmark so it runs from the top to the bottom of the screen.
+  (function () {
+    var spine = document.querySelector('.spine');
+    function fit() {
+      spine.style.fontSize = '100px';
+      var len = spine.getBoundingClientRect().height;
+      spine.style.fontSize = '';
+      if (len) document.documentElement.style.setProperty('--spine-size', (100 * window.innerHeight / len) + 'px');
+    }
+    (document.fonts ? document.fonts.ready : Promise.resolve()).then(fit);
+    window.addEventListener('resize', fit);
+  })();
+
   // Respect reduced motion: hold the step clips on their poster frame.
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
     document.querySelectorAll('video.clip').forEach(function (v) { v.removeAttribute('autoplay'); v.pause(); });
