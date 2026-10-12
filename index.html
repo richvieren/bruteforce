@@ -211,7 +211,7 @@ a { color: inherit; text-decoration: none; }
 .step p { max-width: 34ch; }
 
 .r-img .cell { padding: var(--cell); }
-.how-img { margin-top: 18px; border: var(--rule); }
+.how-img { margin-top: 18px; }
 .how-img img { display: block; width: 100%; height: auto; }
 
 .r-tiers { grid-template-columns: 1fr 1fr; }
@@ -355,7 +355,10 @@ footer {
     <div class="cell">
       <span class="lbl">The math</span>
       <figure class="how-img">
-        <img src="img/how-it-works.png" width="1499" height="921" alt="10 intros times 10 bodies times 10 CTAs or outros gives 1,000 structural combinations. Add 35 title hooks and 10 audio tracks for infinite variations.">
+        <picture>
+          <source media="(max-width: 900px)" srcset="img/how-it-works-portrait.png" width="1440" height="4826">
+          <img src="img/how-it-works.png" width="3000" height="1691" alt="10 intros times 10 bodies times 10 CTAs or outros gives 1,000 structural combinations. Add 35 title hooks and 10 audio tracks for infinite variations.">
+        </picture>
       </figure>
     </div>
   </section>

@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<!-- Source for img/how-it-works.png (wide) and img/how-it-works-portrait.png.
+     Render: headless Chrome, transparent background, 2x scale. Widths: 1500 and 720. -->
+<link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
+<style>
+@font-face {
+  font-family: 'Special Elite';
+  src: url('../../fonts/special-elite-400.woff2') format('woff2');
+}
+:root {
+  --red: #AF3131;
+  --ink: #33337A;
+  --line: #2C0A0A;
+  --rule: 2px solid var(--line);
+  --title: 'Anton', Impact, sans-serif;
+  --type: 'Special Elite', 'Courier New', monospace;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { background: transparent; }
+body { font-family: var(--type); color: var(--ink); width: 1500px; }
+body.portrait { width: 720px; }
+
+.sheet { border: var(--rule); }
+.row { display: grid; border-top: var(--rule); }
+.row:first-child { border-top: 0; }
+.row > * + * { border-left: var(--rule); }
+
+.r-blocks { grid-template-columns: 1fr 72px 1fr 72px 1fr; }
+.r-extra { grid-template-columns: 1fr 72px 1fr 72px 1.25fr; }
+
+.box { padding: 22px 24px 26px; }
+.lbl {
+  font-size: 15px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--line);
+}
+.head { display: flex; align-items: baseline; gap: 14px; margin: 14px 0 20px; }
+.n { font-family: var(--title); font-size: 92px; line-height: 0.85; color: var(--red); }
+.what { font-family: var(--title); font-size: 34px; line-height: 1; text-transform: uppercase; color: var(--line); }
+
+.op {
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--title); font-size: 54px; color: var(--line);
+}
+
+.tiles { display: grid; grid-template-columns: repeat(5, 1fr); border-top: 1.5px solid var(--line); border-left: 1.5px solid var(--line); }
+.tile {
+  border-right: 1.5px solid var(--line);
+  border-bottom: 1.5px solid var(--line);
+  height: 74px;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px;
+}
+.tri { width: 0; height: 0; border-top: 9px solid transparent; border-bottom: 9px solid transparent; border-left: 14px solid var(--ink); margin-left: 4px; }
+.num { font-size: 15px; letter-spacing: 0.08em; color: var(--ink); }
+
+.r-sum .box { display: flex; align-items: baseline; justify-content: center; flex-wrap: wrap; gap: 8px 26px; padding: 26px 24px 30px; }
+.r-sum .lbl { width: 100%; text-align: left; }
+.eq { font-family: var(--title); font-size: 84px; line-height: 1; color: var(--red); }
+.eq-t { font-size: 22px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink); }
+
+.lines { border-top: 1.5px solid var(--line); }
+.lines div {
+  border-bottom: 1.5px solid var(--line);
+  padding: 9px 4px 7px;
+  font-size: 17px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink);
+}
+.lines .more { color: var(--line); letter-spacing: 0.4em; }
+.mark { color: var(--red); }
+
+.track { display: grid; grid-template-columns: 30px 1fr; align-items: center; gap: 10px; border-bottom: 1.5px solid var(--line); padding: 8px 4px; }
+.track:first-of-type { border-top: 1.5px solid var(--line); }
+.wave { display: flex; align-items: center; gap: 3px; height: 28px; }
+.wave i { flex: 1; background: var(--ink); display: block; }
+.track.on .wave i { background: var(--red); }
+.track .tri { border-top-width: 7px; border-bottom-width: 7px; border-left-width: 11px; }
+
+.result { display: flex; align-items: center; justify-content: center; padding: 30px; }
+.stamp {
+  font-family: var(--title);
+  font-size: 76px;
+  line-height: 0.92;
+  text-transform: uppercase;
+  text-align: center;
+  color: var(--red);
+  border: 4px solid var(--red);
+  outline: 2px solid var(--red);
+  outline-offset: 6px;
+  padding: 16px 26px 12px;
+  transform: rotate(-6deg);
+}
+
+/* Portrait: everything stacks */
+.portrait .r-blocks, .portrait .r-extra { grid-template-columns: 1fr; }
+.portrait .row > * + * { border-left: 0; border-top: var(--rule); }
+.portrait .op { height: 70px; }
+.portrait .eq { font-size: 72px; }
+.portrait .result { padding: 56px 30px; }
+</style>
+</head>
+<body>
+<div class="sheet">
+  <div class="row r-blocks">
+    <div class="box">
+      <p class="lbl">Block A</p>
+      <div class="head"><span class="n">10</span><span class="what">Intros</span></div>
+      <div class="tiles" data-tiles></div>
+    </div>
+    <div class="op">&times;</div>
+    <div class="box">
+      <p class="lbl">Block B</p>
+      <div class="head"><span class="n">10</span><span class="what">Bodies</span></div>
+      <div class="tiles" data-tiles></div>
+    </div>
+    <div class="op">&times;</div>
+    <div class="box">
+      <p class="lbl">Block C</p>
+      <div class="head"><span class="n">10</span><span class="what">CTAs / Outros</span></div>
+      <div class="tiles" data-tiles></div>
+    </div>
+  </div>
+
+  <div class="row r-sum">
+    <div class="box">
+      <p class="lbl">Structure</p>
+      <span class="eq">10 &times; 10 &times; 10 = 1,000</span>
+      <span class="eq-t">Structural combinations</span>
+    </div>
+  </div>
+
+  <div class="row r-extra">
+    <div class="box">
+      <p class="lbl">Layer D</p>
+      <div class="head"><span class="n">35</span><span class="what">Title hooks</span></div>
+      <div class="lines">
+        <div><span class="mark">&#10003;</span> Hook style 01</div>
+        <div>Hook style 02</div>
+        <div>Hook style 03</div>
+        <div class="more">...</div>
+      </div>
+    </div>
+    <div class="op">+</div>
+    <div class="box">
+      <p class="lbl">Layer E</p>
+      <div class="head"><span class="n">10</span><span class="what">Audio tracks</span></div>
+      <div class="track on"><span class="tri"></span><span class="wave" data-wave="1"></span></div>
+      <div class="track"><span class="tri"></span><span class="wave" data-wave="2"></span></div>
+      <div class="track"><span class="tri"></span><span class="wave" data-wave="3"></span></div>
+      <div class="lines" style="border-top:0"><div class="more">...</div></div>
+    </div>
+    <div class="op">=</div>
+    <div class="result"><div class="stamp">Infinite<br>variations</div></div>
+  </div>
+</div>
+<script>
+if (location.hash === '#portrait') document.body.classList.add('portrait');
+document.querySelectorAll('[data-tiles]').forEach(t => {
+  for (let i = 1; i <= 10; i++) t.insertAdjacentHTML('beforeend',
+    `<div class="tile"><span class="tri"></span><span class="num">${String(i).padStart(2, '0')}</span></div>`);
+});
+document.querySelectorAll('[data-wave]').forEach(w => {
+  let s = Number(w.dataset.wave) * 9301;
+  const rnd = () => (s = (s * 9301 + 49297) % 233280) / 233280;
+  for (let i = 0; i < 46; i++) w.insertAdjacentHTML('beforeend', `<i style="height:${18 + Math.round(rnd() * 82)}%"></i>`);
+});
+</script>
+</body>
+</html>
