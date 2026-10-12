@@ -252,6 +252,9 @@ a { color: inherit; text-decoration: none; }
   background: var(--line);
 }
 
+.r-film { grid-template-columns: 1fr; }
+.r-film .clip { margin: 10px 0 0; }
+
 .r-tiers { grid-template-columns: 1fr 1fr; }
 .tier { display: flex; flex-direction: column; }
 .tier h2 { font-size: clamp(32px, 3.2vw, 52px); margin: 22px 0 12px; }
@@ -495,6 +498,14 @@ footer {
       <video class="clip" autoplay muted loop playsinline preload="metadata" poster="img/steps/multiply.jpg" aria-label="A man doing maths in his head, equations float around him"><source src="img/steps/multiply.mp4" type="video/mp4"></video>
       <p>The engine builds every combination. Hundreds of edits per run, ready to post or run as ads.</p>
       <p class="by-tag">Done by us</p>
+    </div>
+  </section>
+
+  <!-- Temporary preview: placeholder silhouettes until real talking-head stills arrive. Source: ../motion/how-it-works -->
+  <section class="row r-film" aria-label="The maths">
+    <div class="cell">
+      <span class="lbl">How it works / The maths</span>
+      <video class="clip film" autoplay muted loop playsinline preload="metadata" poster="img/steps/how-it-works-loop.jpg" aria-label="Ten intros times ten bodies times ten outros make 1,000 combinations. Add 35 title hooks and 10 audio tracks for infinite variations."><source src="img/steps/how-it-works-loop.mp4" type="video/mp4"></video>
     </div>
   </section>
 
