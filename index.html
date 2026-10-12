@@ -37,7 +37,9 @@
   --font-logo: 'PODIUM Sharp', 'Arial Black', sans-serif;
 
   --rule: 1.5px solid var(--line);
-  --spine: 124px;
+  /* the whole wordmark fits the screen height */
+  --spine-size: calc((100vh - 48px) / 12.6);
+  --spine: calc(var(--spine-size) * 0.62 + 30px);
   --gutter: 40px;
   --cell: 20px;
   --ease: cubic-bezier(0.25, 0, 0, 1);
@@ -66,20 +68,20 @@ a { color: inherit; text-decoration: none; }
 
 /* Spine: the brand name runs top down, cropped at the left edge */
 .spine {
-  position: absolute;
-  top: 30px;
+  position: fixed;
+  top: 24px;
   left: 0;
   z-index: 5;
   font-family: var(--font-logo);
   font-weight: 1000;
   font-stretch: 200%;
-  font-size: 128px;
+  font-size: var(--spine-size);
   line-height: 0.8;
   color: var(--red);
   text-transform: uppercase;
   writing-mode: vertical-rl;
   white-space: nowrap;
-  transform: translateX(-30%);
+  transform: translateX(-22%);
   pointer-events: none;
   user-select: none;
 }
@@ -288,8 +290,8 @@ footer {
 }
 
 @media (max-width: 900px) {
-  :root { --spine: 58px; --gutter: 14px; --cell: 14px; }
-  .spine { font-size: 68px; top: 14px; }
+  :root { --spine: calc(var(--spine-size) * 0.62 + 10px); --gutter: 14px; --cell: 14px; }
+  .spine { top: 14px; }
   .r-meta { grid-template-columns: 1.2fr 1fr 1fr; }
   .r-meta .cell:first-child { flex-direction: column; align-items: flex-start; gap: 10px; }
   .stamp { font-size: 15px; }
