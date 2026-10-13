@@ -135,6 +135,8 @@ a { color: inherit; text-decoration: none; }
   padding: 6px 10px 5px;
   transform: rotate(-7deg);
   opacity: 0.9;
+  filter: url(#stamp-ink-small);
+  mix-blend-mode: multiply;
 }
 
 .r-batch { grid-template-columns: 170px 1fr; }
@@ -251,12 +253,50 @@ a { color: inherit; text-decoration: none; }
 .r-film { grid-template-columns: 1fr; }
 .r-film .clip { margin: 10px 0 0; }
 
-.r-tiers { grid-template-columns: 1fr 1fr; }
-.tier { display: flex; flex-direction: column; }
-.tier h2 { font-size: clamp(32px, 3.2vw, 52px); margin: 22px 0 12px; }
-.tier ul { list-style: none; margin: 22px 0 28px; border-top: 1px solid var(--line); }
-.tier li { padding: 10px 0; border-bottom: 1px solid var(--line); }
-.tier .btn { margin-top: auto; align-self: flex-start; }
+.r-price-head { grid-template-columns: 1fr; }
+.r-price-head h2 { font-size: clamp(44px, 5.6vw, 92px); margin: 18px 0 6px; }
+.r-price-head p { max-width: 52ch; }
+/* Subgrid keeps title, price, button and rows level across both plans. */
+.r-tiers { grid-template-columns: 1fr 1fr; grid-template-rows: repeat(6, auto); }
+.tier { display: grid; grid-row: span 6; grid-template-rows: subgrid; row-gap: 0; align-content: start; position: relative; }
+.tier h3 { align-self: end; }
+.tier-flag {
+  position: absolute;
+  top: 0;
+  right: var(--cell);
+  background: var(--red);
+  color: #FFF3F3;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 6px 10px 5px;
+}
+.tier h3 { font-size: clamp(32px, 3.2vw, 52px); margin: 22px 0 10px; }
+.tier .price {
+  margin: 22px 0 18px;
+  padding: 14px 0 12px;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+.tier .price b { font-family: var(--font-title); font-weight: 400; font-size: clamp(40px, 4vw, 60px); line-height: 1; color: var(--red); display: block; }
+.tier .price span { font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; }
+.tier .btn { width: 100%; text-align: center; }
+.btn.solid { background: var(--line); border-color: var(--line); color: var(--paper); }
+.btn.solid:hover { background: transparent; border-color: var(--red); color: var(--line); }
+.who { list-style: none; margin: 24px 0 0; border-top: 1px solid var(--line); }
+.who li { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 9px 0; border-bottom: 1px solid var(--line); }
+.who em {
+  font-style: normal;
+  flex-shrink: 0;
+  min-width: 52px;
+  text-align: center;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 4px 8px 3px;
+  border: 1.5px solid var(--line);
+}
+.who em.us { background: var(--line); color: var(--paper); }
 
 .btn {
   display: inline-block;
@@ -438,6 +478,16 @@ footer {
             <feTurbulence type="fractalNoise" baseFrequency="0.05" numOctaves="2" seed="2" result="warp"/>
             <feDisplacementMap in="worn" in2="warp" scale="3" xChannelSelector="R" yChannelSelector="G"/>
           </filter>
+          <!-- Same wear, finer grain, for the small HUMAN MADE stamp -->
+          <filter id="stamp-ink-small" x="-5%" y="-5%" width="110%" height="110%">
+            <feTurbulence type="fractalNoise" baseFrequency="1.4" numOctaves="2" seed="11" result="fine"/>
+            <feTurbulence type="fractalNoise" baseFrequency="0.06" numOctaves="2" seed="5" result="coarse"/>
+            <feComposite in="fine" in2="coarse" operator="arithmetic" k2="0.6" k3="0.6" result="mix"/>
+            <feColorMatrix in="mix" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  -4 0 0 0 3.3" result="holes"/>
+            <feComposite in="SourceGraphic" in2="holes" operator="in" result="worn"/>
+            <feTurbulence type="fractalNoise" baseFrequency="0.12" numOctaves="1" seed="2" result="warp"/>
+            <feDisplacementMap in="worn" in2="warp" scale="1.5" xChannelSelector="R" yChannelSelector="G"/>
+          </filter>
         </svg>
         <h1 class="title stamped">We're being buried in AI slop. We counter that with <span class="accent">original human content</span> at scale.</h1>
       </div>
@@ -527,29 +577,45 @@ footer {
     </div>
   </section>
 
-  <section class="row r-tiers" id="pricing" aria-label="Two ways in">
+  <section class="row r-price-head" id="pricing" aria-label="Pricing">
+    <div class="cell">
+      <span class="lbl">Pricing</span>
+      <h2 class="title">Two ways in.</h2>
+      <p>Choose how much of the work we do. Both end with the same thing: endless unique edits of a real person.</p>
+    </div>
+  </section>
+
+  <section class="row r-tiers" aria-label="Plans">
     <div class="cell tier">
-      <span class="lbl">Two ways in / 01</span>
-      <h2 class="title">You shoot. We multiply.</h2>
+      <span class="lbl">Plan 01</span>
+      <h3 class="title">You shoot. We multiply.</h3>
       <p>You record the talking heads and send us the videos. We create the infinite variations.</p>
-      <ul>
-        <li>You record and deliver the videos</li>
-        <li>We cut your footage into blocks</li>
-        <li>We create the infinite variations</li>
-      </ul>
+      <!-- PRICE PENDING: Richard to supply. Do not publish a number without his figure. -->
+      <p class="price"><span>Price to come</span></p>
       <a href="#book" class="btn">[Book a Call]</a>
+      <ul class="who" aria-label="Who does what">
+        <li>Script <em>You</em></li>
+        <li>Pre-production <em>You</em></li>
+        <li>Shoot and direction <em>You</em></li>
+        <li>Cut the footage into blocks <em class="us">Us</em></li>
+        <li>The infinite variations, in bulk <em class="us">Us</em></li>
+      </ul>
     </div>
     <div class="cell tier">
-      <span class="lbl">Two ways in / 02</span>
-      <h2 class="title">We do all of it.</h2>
+      <span class="tier-flag">Full service</span>
+      <span class="lbl">Plan 02</span>
+      <h3 class="title">We do all of it.</h3>
       <p>We hold your hand from the first script to the last variation.</p>
-      <ul>
-        <li>Script</li>
-        <li>Pre-production</li>
-        <li>Shoot and direction</li>
-        <li>The infinite variations, in bulk</li>
+      <!-- PRICE PENDING: Richard to supply. Do not publish a number without his figure. -->
+      <p class="price"><span>Price to come</span></p>
+      <a href="#book" class="btn solid">[Book a Call]</a>
+      <ul class="who" aria-label="Who does what">
+        <li>Script <em class="us">Us</em></li>
+        <li>Pre-production <em class="us">Us</em></li>
+        <li>Shoot and direction <em class="us">Us</em></li>
+        <li>Cut the footage into blocks <em class="us">Us</em></li>
+        <li>The infinite variations, in bulk <em class="us">Us</em></li>
       </ul>
-      <a href="#book" class="btn">[Book a Call]</a>
     </div>
   </section>
 
