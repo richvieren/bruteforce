@@ -256,9 +256,9 @@ a { color: inherit; text-decoration: none; }
 .r-price-head { grid-template-columns: 1fr; }
 .r-price-head h2 { font-size: clamp(44px, 5.6vw, 92px); margin: 18px 0 6px; }
 .r-price-head p { max-width: 52ch; }
-/* Subgrid keeps title, price, button and rows level across both plans. */
-.r-tiers { grid-template-columns: 1fr 1fr; grid-template-rows: repeat(6, auto); }
-.tier { display: grid; grid-row: span 6; grid-template-rows: subgrid; row-gap: 0; align-content: start; position: relative; }
+/* Subgrid keeps title, text, button and rows level across both plans. */
+.r-tiers { grid-template-columns: 1fr 1fr; grid-template-rows: repeat(5, auto); }
+.tier { display: grid; grid-row: span 5; grid-template-rows: subgrid; row-gap: 0; align-content: start; position: relative; }
 .tier h3 { align-self: end; }
 .tier-flag {
   position: absolute;
@@ -272,15 +272,7 @@ a { color: inherit; text-decoration: none; }
   padding: 6px 10px 5px;
 }
 .tier h3 { font-size: clamp(32px, 3.2vw, 52px); margin: 22px 0 10px; }
-.tier .price {
-  margin: 22px 0 18px;
-  padding: 14px 0 12px;
-  border-top: 1px solid var(--line);
-  border-bottom: 1px solid var(--line);
-}
-.tier .price b { font-family: var(--font-title); font-weight: 400; font-size: clamp(40px, 4vw, 60px); line-height: 1; color: var(--red); display: block; }
-.tier .price span { font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; }
-.tier .btn { width: 100%; text-align: center; }
+.tier .btn { width: 100%; text-align: center; margin-top: 22px; }
 .btn.solid { background: var(--line); border-color: var(--line); color: var(--paper); }
 .btn.solid:hover { background: transparent; border-color: var(--red); color: var(--line); }
 .who { list-style: none; margin: 24px 0 0; border-top: 1px solid var(--line); }
@@ -507,7 +499,7 @@ footer {
         <p class="by"><span class="logo" role="img" aria-label="Bruteforce"></span></p>
       </div>
       <div class="cell">
-        <a href="#book" class="badge">
+        <a href="https://riz.eden.so/call/brute-force" class="badge">
           <svg viewBox="0 0 200 92" preserveAspectRatio="none" aria-hidden="true"><polygon points="100,2 198,46 100,90 2,46"/></svg>
           <span class="b-main">Book a call</span>
           <span class="b-sub">Brute Force</span>
@@ -590,9 +582,7 @@ footer {
       <span class="lbl">Plan 01</span>
       <h3 class="title">You shoot. We multiply.</h3>
       <p>You record the talking heads and send us the videos. We create the infinite variations.</p>
-      <!-- PRICE PENDING: Richard to supply. Do not publish a number without his figure. -->
-      <p class="price"><span>Price to come</span></p>
-      <a href="#book" class="btn">[Book a Call]</a>
+      <a href="https://riz.eden.so/call/brute-force" class="btn">[Book a Call]</a>
       <ul class="who" aria-label="Who does what">
         <li>Script <em>You</em></li>
         <li>Pre-production <em>You</em></li>
@@ -606,9 +596,7 @@ footer {
       <span class="lbl">Plan 02</span>
       <h3 class="title">We do all of it.</h3>
       <p>We hold your hand from the first script to the last variation.</p>
-      <!-- PRICE PENDING: Richard to supply. Do not publish a number without his figure. -->
-      <p class="price"><span>Price to come</span></p>
-      <a href="#book" class="btn solid">[Book a Call]</a>
+      <a href="https://riz.eden.so/call/brute-force" class="btn solid">[Book a Call]</a>
       <ul class="who" aria-label="Who does what">
         <li>Script <em class="us">Us</em></li>
         <li>Pre-production <em class="us">Us</em></li>
@@ -633,7 +621,7 @@ footer {
           <li>Ad variations at scale</li>
         </ul>
       </div>
-      <a href="#book" class="badge">
+      <a href="https://riz.eden.so/call/brute-force" class="badge">
           <svg viewBox="0 0 200 92" preserveAspectRatio="none" aria-hidden="true"><polygon points="100,2 198,46 100,90 2,46"/></svg>
           <span class="b-main">Book a call</span>
           <span class="b-sub">Brute Force</span>
@@ -651,7 +639,7 @@ footer {
     <nav class="f-links" aria-label="Footer">
       <a href="#how">How it works</a>
       <a href="#pricing">Two ways in</a>
-      <a href="#book">Book a call</a>
+      <a href="https://riz.eden.so/call/brute-force">Book a call</a>
     </nav>
     <span>Human-made at machine volume</span>
   </div>
