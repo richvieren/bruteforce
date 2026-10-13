@@ -11,13 +11,6 @@
 <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
 <style>
 @font-face {
-  font-family: 'PODIUM Sharp';
-  src: url('fonts/podium-sharp.otf') format('opentype');
-  font-weight: 1000;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
   font-family: 'Special Elite';
   src: url('fonts/special-elite-400.woff2') format('woff2');
   font-weight: 400;
@@ -34,11 +27,10 @@
 
   --font-title: 'Anton', 'Bebas Neue', 'Impact', sans-serif;
   --font-body: 'Special Elite', 'Courier New', monospace;
-  --font-logo: 'PODIUM Sharp', 'Arial Black', sans-serif;
 
   --rule: 1.5px solid var(--line);
   /* the wordmark runs the full screen height; the script below sets the exact size */
-  --spine-size: calc(100vh / 12.1);
+  --spine-size: calc(100vh / 12.5);
   --spine: calc(var(--spine-size) * 0.62 + 30px);
   --gutter: 40px;
   --cell: 16px;
@@ -72,15 +64,11 @@ a { color: inherit; text-decoration: none; }
   top: 0;
   left: 0;
   z-index: 5;
-  font-family: var(--font-logo);
-  font-weight: 1000;
-  font-stretch: 200%;
-  font-size: var(--spine-size);
-  line-height: 0.8;
-  color: var(--red);
-  text-transform: uppercase;
-  writing-mode: vertical-rl;
-  white-space: nowrap;
+  height: calc(var(--spine-size) * 12.5);
+  aspect-ratio: 256 / 4000;
+  background: var(--red);
+  -webkit-mask: url('img/logo-vertical.png') center / 100% 100% no-repeat;
+  mask: url('img/logo-vertical.png') center / 100% 100% no-repeat;
   transform: translateX(-22%);
   pointer-events: none;
   user-select: none;
@@ -179,12 +167,8 @@ a { color: inherit; text-decoration: none; }
 
 .r-sign { grid-template-columns: 1.6fr 1fr; }
 .r-sign .by {
-  font-family: var(--font-logo);
-  font-weight: 1000;
-  font-stretch: 200%;
   font-size: 30px;
   line-height: 1.05;
-  text-transform: uppercase;
   color: var(--line);
   text-align: center;
   margin-top: 4px;
@@ -323,7 +307,17 @@ footer {
 .f-bar a { color: var(--bar-text); }
 .f-bar a:hover { text-decoration: underline; text-underline-offset: 4px; }
 .f-links { display: flex; gap: 28px; }
-.f-brand { font-family: var(--font-logo); font-weight: 1000; font-stretch: 200%; font-size: 15px; letter-spacing: 0; display: flex; align-items: center; gap: 10px; }
+.f-brand { font-size: 15px; display: flex; align-items: center; gap: 10px; }
+/* The wordmark is a PNG mask, so it takes the colour of the text around it. Source: PODIUM Sharp, kept out of the repo. */
+.logo {
+  display: inline-block;
+  height: 1em;
+  aspect-ratio: 2500 / 200;
+  vertical-align: middle;
+  background: currentColor;
+  -webkit-mask: url('img/logo.png') center / 100% 100% no-repeat;
+  mask: url('img/logo.png') center / 100% 100% no-repeat;
+}
 .f-brand::before { content: ""; width: 14px; height: 14px; background: var(--bar-text); }
 .f-band {
   position: relative;
@@ -406,7 +400,7 @@ footer {
 </head>
 <body>
 
-<div class="spine" aria-hidden="true">Bruteforce</div>
+<div class="spine" aria-hidden="true"></div>
 
 <main class="sheet">
 
@@ -460,7 +454,7 @@ footer {
     <div class="row r-sign">
       <div class="cell">
         <span class="lbl">Written &amp; developed by</span>
-        <p class="by">Bruteforce</p>
+        <p class="by"><span class="logo" role="img" aria-label="Bruteforce"></span></p>
       </div>
       <div class="cell">
         <a href="#book" class="badge">
@@ -587,7 +581,7 @@ footer {
 
 <footer>
   <div class="f-bar">
-    <span class="f-brand">Bruteforce</span>
+    <span class="f-brand"><span class="logo" role="img" aria-label="Bruteforce"></span></span>
     <nav class="f-links" aria-label="Footer">
       <a href="#how">How it works</a>
       <a href="#pricing">Two ways in</a>
@@ -611,16 +605,12 @@ footer {
 </footer>
 
 <script>
-  // Spine: scale the wordmark so it runs from the top to the bottom of the screen.
+  // Spine: size the wordmark so it runs from the top to the bottom of the screen (the PNG is 12.5 units long).
   (function () {
-    var spine = document.querySelector('.spine');
     function fit() {
-      spine.style.fontSize = '100px';
-      var len = spine.getBoundingClientRect().height;
-      spine.style.fontSize = '';
-      if (len) document.documentElement.style.setProperty('--spine-size', (100 * window.innerHeight / len) + 'px');
+      document.documentElement.style.setProperty('--spine-size', (window.innerHeight / 12.5) + 'px');
     }
-    (document.fonts ? document.fonts.ready : Promise.resolve()).then(fit);
+    fit();
     window.addEventListener('resize', fit);
   })();
 

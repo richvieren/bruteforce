@@ -1,0 +1,3 @@
+# Licensed fonts never go in this public repo. The logo is a PNG (img/logo*.png).
+*.otf
+*.ttf
