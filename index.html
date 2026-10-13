@@ -159,6 +159,18 @@ a { color: inherit; text-decoration: none; }
   max-width: 13em;
   margin: 8px auto 0;
 }
+/* Hero title as a rubber stamp: double border, slight tilt, worn ink (filter #stamp-ink). */
+.r-title .stamped {
+  display: table;
+  max-width: 13.6em;
+  margin: 22px auto 14px;
+  padding: 0.14em 0.3em 0.1em;
+  border: 0.1em double var(--red);
+  transform: rotate(-2.5deg);
+  filter: url(#stamp-ink);
+  mix-blend-mode: multiply;
+  opacity: 0.92;
+}
 
 .r-intro .cell { padding-bottom: 14px; }
 .r-intro p { max-width: 62ch; margin: 8px 0 0 clamp(0px, 3vw, 40px); }
@@ -372,6 +384,7 @@ footer {
   .r-batch { grid-template-columns: 1fr; }
   .r-batch .cell + .cell { padding-top: 0; padding-left: var(--cell); }
   .r-title h1 { font-size: clamp(40px, 11vw, 64px); }
+  .r-title .stamped { padding: 0.1em 0.12em 0.06em; margin: 16px auto 8px; transform: rotate(-1.5deg); }
   .caps { font-size: 13px; }
   .r-intro p { margin-left: 0; }
   .r-sign, .r-steps, .r-tiers, .r-cta { grid-template-columns: 1fr; }
@@ -421,7 +434,18 @@ footer {
     <div class="row r-title">
       <div class="cell">
         <span class="lbl">Incoming message</span>
-        <h1 class="title">We're being buried in AI slop. We counter that with <span class="accent">original human content</span> at scale.</h1>
+        <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+          <filter id="stamp-ink" x="-3%" y="-3%" width="106%" height="106%">
+            <feTurbulence type="fractalNoise" baseFrequency="0.75" numOctaves="2" seed="7" result="fine"/>
+            <feTurbulence type="fractalNoise" baseFrequency="0.02" numOctaves="3" seed="4" result="coarse"/>
+            <feComposite in="fine" in2="coarse" operator="arithmetic" k2="0.6" k3="0.6" result="mix"/>
+            <feColorMatrix in="mix" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  -4 0 0 0 3.2" result="holes"/>
+            <feComposite in="SourceGraphic" in2="holes" operator="in" result="worn"/>
+            <feTurbulence type="fractalNoise" baseFrequency="0.05" numOctaves="2" seed="2" result="warp"/>
+            <feDisplacementMap in="worn" in2="warp" scale="3" xChannelSelector="R" yChannelSelector="G"/>
+          </filter>
+        </svg>
+        <h1 class="title stamped">We're being buried in AI slop. We counter that with <span class="accent">original human content</span> at scale.</h1>
       </div>
     </div>
 
