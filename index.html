@@ -175,6 +175,8 @@ a { color: inherit; text-decoration: none; }
   text-align: center;
   margin-top: 4px;
 }
+/* The wordmark shrinks to its cell on narrow screens instead of running off the edge. */
+.r-sign .by .logo { height: auto; width: min(100%, 12.5em); }
 .r-sign .cell { padding-top: 10px; padding-bottom: 10px; }
 .r-sign .cell:last-child { display: flex; align-items: center; justify-content: center; }
 .r-sign .badge { width: 200px; height: 70px; }
@@ -318,7 +320,7 @@ a { color: inherit; text-decoration: none; }
   border-bottom: 1px solid var(--line);
 }
 
-/* Footer: red bars, a dark band with a giant cropped BRUTE, a slideshow on top */
+/* Footer: one red bar with the wordmark and links */
 footer {
   margin: 0 var(--gutter) var(--gutter) var(--spine);
   border: var(--rule);
@@ -351,48 +353,6 @@ footer {
   mask: url('img/logo.png') center / 100% 100% no-repeat;
 }
 .f-brand::before { content: ""; width: 14px; height: 14px; background: var(--bar-text); }
-.f-band {
-  position: relative;
-  height: clamp(320px, 42vw, 560px);
-  background: var(--line);
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.f-giant {
-  font-family: var(--font-title);
-  font-size: clamp(170px, 40vw, 600px);
-  line-height: 0.8;
-  text-transform: uppercase;
-  color: var(--paper);
-  white-space: nowrap;
-  letter-spacing: -0.01em;
-  user-select: none;
-}
-.f-slides {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  height: 82%;
-  aspect-ratio: 550 / 456;
-}
-.f-slide { position: absolute; inset: 0; opacity: 0; transition: opacity 500ms var(--ease); }
-.f-slide.on { opacity: 1; }
-.f-slide video, .f-slide img { width: 100%; height: 100%; object-fit: cover; display: block; }
-.f-nums { display: flex; gap: 10px; }
-.f-nums button {
-  font: inherit;
-  color: var(--bar-text);
-  background: none;
-  border: 0;
-  padding: 2px 2px;
-  min-width: 24px;
-  min-height: 24px;
-  cursor: pointer;
-}
-.f-nums button[aria-current="true"] { text-decoration: underline; text-underline-offset: 4px; }
 
 @media (max-width: 1200px) and (min-width: 901px) {
   .r-steps { grid-template-columns: 1fr 1fr; }
@@ -421,7 +381,6 @@ footer {
   .r-sign .cell:last-child { padding: 28px var(--cell); }
   .f-bar { flex-wrap: wrap; gap: 8px 16px; font-size: 11px; }
   .f-links { display: none; }
-  .f-band { height: 260px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -643,19 +602,6 @@ footer {
     </nav>
     <span>Human-made at machine volume</span>
   </div>
-  <div class="f-band">
-    <div class="f-giant" aria-hidden="true">Brute</div>
-    <div class="f-slides" data-slides>
-      <figure class="f-slide on" data-caption="Shot on Kodak Portra 400">
-        <video autoplay muted loop playsinline preload="metadata" poster="img/slides/portra.jpg" aria-label="Portrait in a Kodak Portra 400 film frame"><source src="img/slides/portra.mp4" type="video/mp4"></video>
-      </figure>
-    </div>
-  </div>
-  <div class="f-bar">
-    <span>Now showing:</span>
-    <span data-slide-caption>Shot on Kodak Portra 400</span>
-    <span class="f-nums" data-slide-nums></span>
-  </div>
 </footer>
 
 <script>
@@ -668,40 +614,9 @@ footer {
     window.addEventListener('resize', fit);
   })();
 
-  // Footer slideshow: numbered buttons, auto-advance every 4 seconds.
-  (function () {
-    var slides = [].slice.call(document.querySelectorAll('[data-slides] .f-slide'));
-    var nums = document.querySelector('[data-slide-nums]');
-    var caption = document.querySelector('[data-slide-caption]');
-    if (!slides.length) return;
-    var current = 0, timer;
-    function show(i) {
-      slides[current].classList.remove('on');
-      current = i;
-      slides[current].classList.add('on');
-      caption.textContent = slides[current].dataset.caption || '';
-      [].forEach.call(nums.children, function (b, j) { b.setAttribute('aria-current', j === current ? 'true' : 'false'); });
-    }
-    slides.forEach(function (_, i) {
-      var b = document.createElement('button');
-      b.type = 'button';
-      b.textContent = i + 1;
-      b.setAttribute('aria-label', 'Show slide ' + (i + 1));
-      b.addEventListener('click', function () { show(i); restart(); });
-      nums.appendChild(b);
-    });
-    function restart() {
-      clearInterval(timer);
-      if (slides.length > 1 && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-        timer = setInterval(function () { show((current + 1) % slides.length); }, 4000);
-      }
-    }
-    show(0); restart();
-  })();
-
   // Respect reduced motion: hold the step clips on their poster frame.
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-    document.querySelectorAll('video.clip, .f-slide video').forEach(function (v) { v.removeAttribute('autoplay'); v.pause(); });
+    document.querySelectorAll('video.clip').forEach(function (v) { v.removeAttribute('autoplay'); v.pause(); });
   }
 </script>
 
